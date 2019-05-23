@@ -22,13 +22,27 @@ define('BD_DRIVER' , "sqlsrv");
         $connect = new PDO($pdoConfig, $user_name, $password);
         $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         //$resultado = $connect->query("select nome_pessoa from pessoa where cod_pessoa = 63950");
-        $sql = "select nome_pessoa from pessoa where cod_pessoa = :codigo";
-        $sth = $connect->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-        $sth->execute(array(':codigo'=>"63950"));
-        $connect = NULL;
+        //$sql = "select nome_pessoa from pessoa where cod_pessoa = :codigo";
 
-        $result = $sth->fetchall();
-        print_r($result);
+        $sql_verifica_usuario = "select login_ldap from pessoa where login_ldap like :codigo";
+
+        $sql = "select  cod_pessoa,
+                        nome_pessoa,
+                        senha_alfa,
+                        login_ldap
+                from    pessoa
+                where   login_ldap = :codigo and
+                        senha_alfa like :senha
+                ";
+        $sth0 = $connect->prepare($sql_verifica_usuario, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $sth = $connect->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        unset($connect);
+        //$cod_pessoa = '63950';
+        //$sth->execute(array(':codigo'=>&$cod_pessoa));
+        //$connect = NULL;
+
+        //$result = $sth->fetchall();
+        //print_r($result);
     } catch (Exception $e) {
         exit($e-getMessage());
     }
