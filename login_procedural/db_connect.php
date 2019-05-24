@@ -38,10 +38,18 @@ define('BD_DRIVER' , "sqlsrv");
         $sth = $connect->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
         unset($connect);
         //$cod_pessoa = '63950';
+        // $login_com_sqlinjection = "Um teste de or '1='1;";
+        // $senha_com_sqlinjection = "Um teste de or '1='1;";
+        // $filtro_texto = '/[^[:alpha:]_]/';
+        // $filtro_text_numero = '/[^[:alnum:]_]/';
+        // $Login_limpo = preg_replace($filtro_texto, '', $login_com_sqlinjection);
+        // $Senha_limpa = preg_replace($filtro_text_numero, '', $senha_com_sqlinjection);
         //$sth->execute(array(':codigo'=>&$cod_pessoa));
         //$connect = NULL;
 
         //$result = $sth->fetchall();
+        //$sth = NULL;
+        //unset($sth);
         //print_r($result);
     } catch (Exception $e) {
         exit($e-getMessage());
